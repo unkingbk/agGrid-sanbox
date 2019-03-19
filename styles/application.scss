@@ -1,4 +1,19 @@
 // This is the top-level scss file. Import all other files in here.
-@import 'home';
 @import '../node_modules/ag-grid/dist/styles/ag-grid.css';
 @import '../node_modules/ag-grid/dist/styles/ag-theme-balham.css';
+
+//Fix
+.ag-body-viewport-wrapper.ag-layout-normal {
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
