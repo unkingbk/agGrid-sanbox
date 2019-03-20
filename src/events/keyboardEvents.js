@@ -1,3 +1,5 @@
+import { getRowsLastIndex, getRowsFirstIndex, getAllRows } from './utils';
+
 export const goToFirstColumn = function (agGridApi) {
   const firstColumn = agGridApi.columnController.getAllDisplayedColumns()[0];
   const currentRow = agGridApi.getFocusedCell().rowIndex;
@@ -29,18 +31,25 @@ export const gotToLastRow = function(agGridApi){
   agGridApi.setFocusedCell(lastRow, currentColumn);
 };
 
-
-// UTILS
-export const getAllRows = function(agGridApi){
-  let rows = [];
-  agGridApi.forEachNode(node => rows.push(node));
-  return rows;
+export const selectRow = function (agGridApi) {
+  const currentRowIndex = agGridApi.getFocusedCell().rowIndex;
+  const currentRowNode = agGridApi.getRowNode(currentRowIndex);
+  const selectStatus = currentRowNode.selected;
+  currentRowNode.setSelected(!selectStatus);
 };
 
-export const getRowsFirstIndex = function(){
-  return 0;
+export const selectAllRows = function (agGridApi) {
+  agGridApi.selectAll();
 };
 
-export const getRowsLastIndex = function(agGridApi){
-  return getAllRows(agGridApi).length - 1;
+export const deselectAllRows = function(agGridApi) {
+  agGridApi.deselectAll();
+};
+
+export const invertSelectedRows = function(agGridApi) {
+  const allRows = getAllRows(agGridApi);
+  allRows.forEach((node)=>{
+    const {selected} = node;
+    node.setSelected(!selected);
+  });
 };

@@ -4,18 +4,36 @@ import {LicenseManager} from "ag-grid-enterprise";
 LicenseManager.setLicenseKey("Evaluation_License-_Not_For_Production_Valid_Until_25_May_2019__MTU1ODczODgwMDAwMA==156057ec2a5212d3fc17b2c425718067");
 
 
-import { slectRowByClikMetakey, getStrategy, customTab } from './events/controller';
+import { listenAllEvents } from './events/controller';
+
+const isShowCheckboxColumn = function(params) {
+  var displayedColumns = params.columnApi.getAllDisplayedColumns();
+  var thisIsFirstColumn = displayedColumns[0] === params.column;
+  return thisIsFirstColumn;
+};
 
 class App extends Component {
   constructor (props) {
     super(props);
-    this.getStrategy = getStrategy.bind(this);
 
     this.state = {
       columnDefs: [
-        { headerName: 'Make', field: 'make', checkboxSelection: true },
-        { headerName: 'Model', field: 'model' },
-        { headerName: 'Price', field: 'price' },
+        {
+          headerName: 'Make',
+          field: 'make',
+          checkboxSelection: isShowCheckboxColumn,
+          headerCheckboxSelection: isShowCheckboxColumn,
+          sortable: true,
+          resizable: true,
+        },
+        { headerName: 'Model', field: 'model',
+          checkboxSelection: isShowCheckboxColumn,
+          headerCheckboxSelection: isShowCheckboxColumn
+        },
+        { headerName: 'Price', field: 'price',
+          checkboxSelection: isShowCheckboxColumn,
+          headerCheckboxSelection: isShowCheckboxColumn
+        },
 
       ],
       rowData: [
@@ -76,11 +94,9 @@ class App extends Component {
       ],
       // Grid navigation configurate
       rowSelection: 'multiple',
-      suppressRowClickSelection: false,
+      suppressRowClickSelection: true,
       alwaysShowVerticalScroll: true,
       // Events
-      rowClicked: slectRowByClikMetakey,
-      tabToNextCell: customTab,
       suppressKeyboardEvent: function(params) {
         let KEY_A = 65;
         let KEY_C = 67;
@@ -119,7 +135,7 @@ class App extends Component {
 
 
   render () {
-    const { columnDefs, rowData, rowSelection, suppressRowClickSelection, rowClicked, tabToNextCell,suppressKeyboardEvent } = this.state;
+    const { columnDefs, rowData, rowSelection, suppressRowClickSelection, rowClicked, suppressKeyboardEvent } = this.state;
 
     return <div
       className="ag-theme-balham"
@@ -127,12 +143,13 @@ class App extends Component {
         height: '500px',
         width: '600px'
       }}
-      onKeyDown={this.getStrategy}
     >
       <AgGridReact
         onGridReady={ params => {
             this.gridApi = params.api
             this.columnApi = params.columnApi
+
+            params.api.addGlobalListener(listenAllEvents);
           }
         }
         columnDefs={columnDefs}
@@ -142,6 +159,7 @@ class App extends Component {
         onRowClicked={rowClicked}
         suppressKeyboardEvent={suppressKeyboardEvent}
         alwaysShowVerticalScroll={true}
+        rowDragManaged={true}
       />
     </div>
   }
