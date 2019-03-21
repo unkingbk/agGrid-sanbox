@@ -5,6 +5,7 @@ LicenseManager.setLicenseKey("Evaluation_License-_Not_For_Production_Valid_Until
 
 
 import { listenAllEvents } from './events/controller';
+import dataSetToolPanel from './components/dataSetToolPanel';
 
 const isShowCheckboxColumn = function(params) {
   var displayedColumns = params.columnApi.getAllDisplayedColumns();
@@ -21,18 +22,10 @@ class App extends Component {
         {
           headerName: 'Make',
           field: 'make',
-          checkboxSelection: isShowCheckboxColumn,
-          headerCheckboxSelection: isShowCheckboxColumn,
-          sortable: true,
-          resizable: true,
         },
         { headerName: 'Model', field: 'model',
-          checkboxSelection: isShowCheckboxColumn,
-          headerCheckboxSelection: isShowCheckboxColumn
         },
         { headerName: 'Price', field: 'price',
-          checkboxSelection: isShowCheckboxColumn,
-          headerCheckboxSelection: isShowCheckboxColumn
         },
 
       ],
@@ -92,6 +85,31 @@ class App extends Component {
         { make: 'Ford', model: 'Mondeo', price: 32000 },
         { make: 'Porsche end', model: 'Boxter', price: 72000 }
       ],
+
+      defaultColDef: {
+        checkboxSelection: isShowCheckboxColumn,
+        headerCheckboxSelection: isShowCheckboxColumn,
+        sortable: true,
+        resizable: true,
+        enableValue: true,
+        menuTabs:[]
+      },
+
+      sideBar: {
+        toolPanels: [
+          {
+            id: "customConfig",
+            labelDefault: "Data set",
+            labelKey: "dataSet",
+            iconKey: "custom-stats",
+            toolPanel: "dataSetToolPanel"
+          }
+        ],
+        defaultToolPanel: 'customConfig'
+      },
+      frameworkComponents: {
+        dataSetToolPanel: dataSetToolPanel
+      },
       // Grid navigation configurate
       rowSelection: 'multiple',
       suppressRowClickSelection: true,
@@ -135,7 +153,7 @@ class App extends Component {
 
 
   render () {
-    const { columnDefs, rowData, rowSelection, suppressRowClickSelection, rowClicked, suppressKeyboardEvent } = this.state;
+    const { columnDefs, rowData, rowSelection, suppressRowClickSelection, rowClicked, suppressKeyboardEvent, defaultColDef, sideBar, frameworkComponents } = this.state;
 
     return <div
       className="ag-theme-balham"
@@ -153,13 +171,16 @@ class App extends Component {
           }
         }
         columnDefs={columnDefs}
+        defaultColDef={defaultColDef}
         rowData={rowData}
         rowSelection={rowSelection}
         suppressRowClickSelection={suppressRowClickSelection}
         onRowClicked={rowClicked}
         suppressKeyboardEvent={suppressKeyboardEvent}
+        frameworkComponents={frameworkComponents}
         alwaysShowVerticalScroll={true}
         rowDragManaged={true}
+        sideBar={sideBar}
       />
     </div>
   }
