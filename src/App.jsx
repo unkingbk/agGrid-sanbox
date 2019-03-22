@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import {LicenseManager} from "ag-grid-enterprise";
 LicenseManager.setLicenseKey("Evaluation_License-_Not_For_Production_Valid_Until_25_May_2019__MTU1ODczODgwMDAwMA==156057ec2a5212d3fc17b2c425718067");
 
+import "ag-grid-enterprise/dist/ag-grid-enterprise";
 
 import { listenAllEvents } from './events/controller';
 import dataSetToolPanel from './components/dataSetToolPanel';
@@ -101,7 +102,7 @@ class App extends Component {
             id: "customConfig",
             labelDefault: "Data set",
             labelKey: "dataSet",
-            iconKey: "custom-stats",
+            iconKey: "columns",
             toolPanel: "dataSetToolPanel"
           }
         ],
@@ -158,8 +159,8 @@ class App extends Component {
     return <div
       className="ag-theme-balham"
       style={{
-        height: '500px',
-        width: '600px'
+        height: '100vh',
+        width: '90vw'
       }}
     >
       <AgGridReact

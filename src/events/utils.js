@@ -18,5 +18,4 @@ export const pinRows = function(count, agGridApi){
     const isPinned = index < count ? 'left': null;
     agGridApi.columnController.setColumnPinned(column, isPinned);
   });
-  console.log(columns);
 };

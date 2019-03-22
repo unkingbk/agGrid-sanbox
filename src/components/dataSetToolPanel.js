@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { pinRows } from '../events/utils';
+import _find from 'lodash/find';
 
 export default class DataSetToolPanel extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ export default class DataSetToolPanel extends Component {
       countRows: 0,
       columns: [],
     };
-
     // Event to watch grid update
     this.props.api.addEventListener('modelUpdated', ()=>{
       const {columnController} = this.props.api;
@@ -33,6 +33,64 @@ export default class DataSetToolPanel extends Component {
     api.columnController.setColumnVisible(columnKey, checked);
   }
 
+  saveStyleRule(event) {
+    event.preventDefault();
+    const {api}  = this.state;
+    const {name, elements} = event.target;
+    const {bgColor = 'white', textColor = 'black', logic, rules, applyToRow} = elements;
+    const column = _find(api.columnController.getDisplayedColumns(),{colId: name});
+    const styleRules = function (params) {
+      const cellValue = params.data[name];
+      if(!!rules.value){
+        switch (logic.value) {
+          case 'equal':
+            if (cellValue == rules.value) {
+              return {color: textColor.value, backgroundColor: bgColor.value};
+            }
+            else {
+              return null;
+            }
+            break;
+          case 'noEqual':
+            if (cellValue != rules.value) {
+
+              return {color: textColor.value, backgroundColor: bgColor.value};
+            }
+            else {
+              return null;
+            }
+            break;
+          case 'less':
+            if (cellValue > rules.value) {
+              return {color: textColor.value, backgroundColor: bgColor.value};
+            } else {
+              return null;
+            }
+            break;
+          case 'more':
+            if (cellValue < rules.value) {
+              return {color: textColor.value, backgroundColor: bgColor.value};
+            } else {
+              return null;
+            }
+            break;
+          default:
+            return null;
+            break;
+        }
+      }
+      return {color: textColor.value, backgroundColor: bgColor.value};
+    };
+
+    if (applyToRow.checked){
+      api.gridOptionsWrapper.gridOptions.getRowStyle = styleRules;
+    } else{
+      column.colDef.cellStyle = styleRules;
+    }
+
+    api.redrawRows();
+  }
+
   render () {
     return(
       <div>
@@ -48,6 +106,35 @@ export default class DataSetToolPanel extends Component {
                 <label>{column.userProvidedColDef.headerName}</label>
                 <input type="checkbox" value={column.colId} onChange={this.changeColumnVisibility.bind(this)} defaultChecked={true}/>
               </div>
+            )
+          })
+        }
+        <h3>Cell and row styling</h3>
+        {
+          this.state.columns.map((column, key)=>{
+
+            return (
+              <form key={key} name={column.colId} onSubmit={this.saveStyleRule.bind(this)}>
+                <h4>{column.userProvidedColDef.headerName}</h4>
+                <select name="logic" id="">
+                  <option value="equal">Equal</option>
+                  <option value="noEqual">Not equal</option>
+                  <option value="less">Less</option>
+                  <option value="more">More</option>
+                </select>
+                <input type="text" name="rules"/>
+                <br/>
+                <label>Background color:</label>
+                <input type="text" name="bgColor"/>
+                <br/>
+                <label>Text color:</label>
+                <br/>
+                <input type="text" name="textColor"/>
+                <hr/>
+                <label>Apply to row</label>
+                <input type="checkbox" name="applyToRow"/>
+                <input type="submit" value="save"/>
+              </form>
             )
           })
         }
