@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { pinRows } from '../events/utils';
+import { pinRows } from '../events/action';
 import _find from 'lodash/find';
 
 export default class DataSetToolPanel extends Component {

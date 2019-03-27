@@ -6,25 +6,22 @@ import {
     gotToFirstRow,
     gotToLastRow,
     selectAllRows,
-    selectRow,
     invertSelectedRows,
-} from './keyboardEvents';
-import {inverseRowSelected} from './agGridEvents';
+    emittRowFocused
+} from './action';
 
 const COMBINATIONS_NAME = {
     'Home' : {keyCode: 36, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false},
     'End' : {keyCode: 35, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false},
     'CtrlHome' : {keyCode: 36, altKey: false, ctrlKey: true, metaKey: false, shiftKey: false},
     'CtrlEnd' : {keyCode: 36, altKey: false, ctrlKey: true, metaKey: false, shiftKey: false},
-    'Space' : {keyCode: 32, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false},
-    // TODO switch mac key combination to normal Num button
     'NumPlus' : {keyCode: 187, altKey: true, ctrlKey: false, metaKey: false, shiftKey: false},
     'NumMinus' : {keyCode: 189, altKey: true, ctrlKey: false, metaKey: false, shiftKey: false},
     'NumInvert' : {keyCode: 56, altKey: true, ctrlKey: false, metaKey: false, shiftKey: false},
 };
 
 export const strategyKeyboard = function (event) {
-    const {api, columnApi} = event;
+    const {api} = event;
     const {keyCode, altKey, ctrlKey, shiftKey, metaKey} = event.event;
     const combination = _findKey(COMBINATIONS_NAME, {keyCode, altKey, ctrlKey, shiftKey, metaKey});
 
@@ -41,9 +38,6 @@ export const strategyKeyboard = function (event) {
         case 'CtrlEnd':
             gotToLastRow(api);
             break;
-        case 'Space':
-            selectRow(api);
-            break;
         case 'NumPlus':
             selectAllRows(api);
             break;
@@ -53,28 +47,23 @@ export const strategyKeyboard = function (event) {
         case 'NumInvert':
             invertSelectedRows(api);
             break;
-        default:
-            // console.log('KeyKode', keyCode, altKey, ctrlKey, shiftKey, metaKey);
         break;
     }
 };
 
 export const strategyGrid = function (event) {
-    const {api, columnApi, type} = event;
+    const {api, type} = event;
     switch (type) {
         case 'selectionChanged':
-        inverseRowSelected(api);
         break;
     }
 };
 
 export const strategyMouse = function (event) {
-    const {api, columnApi} = event;
+    const {api} = event;
 };
 
-
-
-export const listenAllEvents = function(type, event){
+export const eventController = function(type, event){
     switch (type) {
         case 'rowClicked':
         case 'rowDoubleClicked':
@@ -88,6 +77,9 @@ export const listenAllEvents = function(type, event){
             break;
         case 'cellKeyDown':
             strategyKeyboard(event);
+            break;
+        case 'cellFocused':
+            emittRowFocused(event);
             break;
         default:
             strategyGrid(event);

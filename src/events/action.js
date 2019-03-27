@@ -1,5 +1,3 @@
-import { getRowsLastIndex, getRowsFirstIndex, getAllRows } from './utils';
-
 export const goToFirstColumn = function (agGridApi) {
   const firstColumn = agGridApi.columnController.getAllDisplayedColumns()[0];
   const currentRow = agGridApi.getFocusedCell().rowIndex;
@@ -51,5 +49,39 @@ export const invertSelectedRows = function(agGridApi) {
   allRows.forEach((node)=>{
     const {selected} = node;
     node.setSelected(!selected);
+  });
+};
+
+export const getFocusedRow = function(agGridApi) {
+  const currentRowIndex = agGridApi.rowIndex;
+  const currentRow = agGridApi.api.getRowNode(currentRowIndex);
+  return currentRow;
+};
+
+export const emittRowFocused = function (agGridApi) {
+  const focusedRow = getFocusedRow(agGridApi);
+  const event = new CustomEvent('rowFocused', {'detail': focusedRow});
+  window.dispatchEvent(event);
+};
+
+export const getAllRows = function(agGridApi){
+  let rows = [];
+  agGridApi.forEachNode(node => rows.push(node));
+  return rows;
+};
+
+export const getRowsFirstIndex = function(){
+  return 0;
+};
+
+export const getRowsLastIndex = function(agGridApi){
+  return getAllRows(agGridApi).length - 1;
+};
+
+export const pinRows = function(count, agGridApi){
+  const columns = agGridApi.columnController.allDisplayedColumns;
+  columns.forEach((column, index)=>{
+    const isPinned = index < count ? 'left': null;
+    agGridApi.columnController.setColumnPinned(column, isPinned);
   });
 };

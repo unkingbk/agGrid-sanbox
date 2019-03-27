@@ -5,7 +5,7 @@ LicenseManager.setLicenseKey("Evaluation_License-_Not_For_Production_Valid_Until
 
 import "ag-grid-enterprise/dist/ag-grid-enterprise";
 
-import { listenAllEvents } from './events/controller';
+import { eventController } from './events/controller';
 import dataSetToolPanel from './components/dataSetToolPanel';
 
 const isShowCheckboxColumn = function(params) {
@@ -31,60 +31,60 @@ class App extends Component {
 
       ],
       rowData: [
-        { make: 'Toyota start', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche', model: 'Boxter', price: 72000 },
-        { make: 'Toyota', model: 'Celica', price: 35000 },
-        { make: 'Ford', model: 'Mondeo', price: 32000 },
-        { make: 'Porsche end', model: 'Boxter', price: 72000 }
+        { id:12, id:12, make: 'Toyota start', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche', model: 'Boxter', price: 72000 },
+        { id:12, make: 'Toyota', model: 'Celica', price: 35000 },
+        { id:12, make: 'Ford', model: 'Mondeo', price: 32000 },
+        { id:12, make: 'Porsche end', model: 'Boxter', price: 72000 }
       ],
 
       defaultColDef: {
@@ -104,7 +104,8 @@ class App extends Component {
             labelKey: "dataSet",
             iconKey: "columns",
             toolPanel: "dataSetToolPanel"
-          }
+          },
+          "columns"
         ],
         defaultToolPanel: 'customConfig'
       },
@@ -117,35 +118,31 @@ class App extends Component {
       alwaysShowVerticalScroll: true,
       // Events
       suppressKeyboardEvent: function(params) {
-        let KEY_A = 65;
-        let KEY_C = 67;
-        let KEY_V = 86;
-        let KEY_D = 68;
-        let KEY_PAGE_UP = 33;
-        let KEY_PAGE_DOWN = 34;
-        let KEY_TAB = 9;
-        let KEY_F2 = 113;
-        let KEY_BACKSPACE = 8;
-        let KEY_ESCAPE = 27;
-        let KEY_SPACE = 32;
-        let KEY_DELETE = 46;
-        let KEY_PAGE_HOME = 36;
-        let KEY_PAGE_END = 35;
-        var event = params.event;
-        var key = event.which;
-        var keysToSuppress = [
-          // KEY_PAGE_UP,
-          // KEY_PAGE_DOWN,
+        const KEY_A = 65;
+        const KEY_C = 67;
+        const KEY_V = 86;
+        const KEY_D = 68;
+        const KEY_PAGE_UP = 33;
+        const KEY_PAGE_DOWN = 34;
+        const KEY_TAB = 9;
+        const KEY_F2 = 113;
+        const KEY_BACKSPACE = 8;
+        const KEY_ESCAPE = 27;
+        const KEY_DELETE = 46;
+        const KEY_PAGE_HOME = 36;
+        const KEY_PAGE_END = 35;
+        const event = params.event;
+        const key = event.which;
+        const keysToSuppress = [
           KEY_TAB,
           KEY_F2,
           KEY_BACKSPACE,
           KEY_ESCAPE,
-          KEY_SPACE,
           KEY_DELETE,
           KEY_PAGE_HOME,
           KEY_PAGE_END
         ];
-        var suppress = keysToSuppress.indexOf(key) >= 0;
+        const suppress = keysToSuppress.indexOf(key) >= 0;
         return suppress;
       },
     };
@@ -158,6 +155,7 @@ class App extends Component {
 
     return <div
       className="ag-theme-balham"
+      tabIndex="3"
       style={{
         height: '100vh',
         width: '90vw'
@@ -168,7 +166,7 @@ class App extends Component {
             this.gridApi = params.api
             this.columnApi = params.columnApi
 
-            params.api.addGlobalListener(listenAllEvents);
+            params.api.addGlobalListener(eventController);
           }
         }
         columnDefs={columnDefs}
@@ -182,7 +180,10 @@ class App extends Component {
         alwaysShowVerticalScroll={true}
         rowDragManaged={true}
         sideBar={sideBar}
+        tabIndex="0"
       />
+      <input tabIndex="1" type="text"/>
+      <input tabIndex="2" type="text"/>
     </div>
   }
 }
